@@ -281,6 +281,8 @@ class Interpreter:
                 return +operand
             elif node.operator.type == TokenType.MINUS:
                 return -operand
+            else:
+                raise ValueError(f"Unknown unary operator: {node.operator.type}")
         
         elif isinstance(node, BinaryOpNode):
             left = self.evaluate(node.left)
@@ -296,6 +298,8 @@ class Interpreter:
                 if right == 0:
                     raise ValueError("Division by zero")
                 return left / right
+            else:
+                raise ValueError(f"Unknown binary operator: {node.operator.type}")
         
         raise ValueError(f"Unknown node type: {type(node)}")
 

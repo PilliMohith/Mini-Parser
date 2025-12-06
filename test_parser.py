@@ -75,6 +75,25 @@ class TestTokenizer(unittest.TestCase):
             tokenizer.tokenize()
         
         self.assertIn("Unexpected character", str(context.exception))
+    
+    def test_multiple_decimal_points(self):
+        """Test that numbers with multiple decimal points raise an error."""
+        tokenizer = Tokenizer("3.14.15")
+        
+        with self.assertRaises(ValueError) as context:
+            tokenizer.tokenize()
+        
+        self.assertIn("multiple decimal points", str(context.exception))
+    
+    def test_standalone_decimal_point(self):
+        """Test that a standalone decimal point raises an error."""
+        tokenizer = Tokenizer("3 + .")
+        
+        with self.assertRaises(ValueError) as context:
+            tokenizer.tokenize()
+        
+        # A standalone decimal point is caught as an unexpected character
+        self.assertIn("Unexpected character", str(context.exception))
 
 
 class TestParser(unittest.TestCase):

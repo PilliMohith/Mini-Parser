@@ -101,13 +101,23 @@ class Tokenizer:
         """
         num_str = ""
         start_pos = self.position
+        has_decimal = False
         
         # Read digits and at most one decimal point
         while self.current_char is not None and (
             self.current_char.isdigit() or self.current_char == '.'
         ):
+            if self.current_char == '.':
+                if has_decimal:
+                    # Already have a decimal point
+                    self.error(f"Invalid number: multiple decimal points")
+                has_decimal = True
             num_str += self.current_char
             self.advance()
+        
+        # Validate that we have at least one digit
+        if not num_str or num_str == '.':
+            self.error(f"Invalid number: {num_str if num_str else 'empty'}")
         
         try:
             # Try to convert to float

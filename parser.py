@@ -13,11 +13,11 @@ The parser respects operator precedence:
 Grammar (in EBNF notation):
     expression  := term ((PLUS | MINUS) term)*
     term        := factor ((MULTIPLY | DIVIDE) factor)*
-    factor      := NUMBER | LPAREN expression RPAREN
+    factor      := NUMBER | LPAREN expression RPAREN | (PLUS|MINUS) factor
 """
 
 from tokenizer import Token, TokenType, Tokenizer
-from typing import Optional
+from typing import Optional, List
 
 
 class ASTNode:
@@ -99,7 +99,7 @@ class Parser:
         BinaryOp(+, Number(3.0), BinaryOp(*, Number(5.0), Number(2.0)))
     """
     
-    def __init__(self, tokens: list):
+    def __init__(self, tokens: List[Token]):
         """
         Initialize the parser with a list of tokens.
         

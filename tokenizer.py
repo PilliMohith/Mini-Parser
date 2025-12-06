@@ -10,7 +10,7 @@ For example: "3 + 5" becomes tokens: NUMBER(3), PLUS, NUMBER(5)
 
 from enum import Enum, auto
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List, Optional, Union
 
 
 class TokenType(Enum):
@@ -40,7 +40,7 @@ class Token:
         position: Position in the input string (for error messages)
     """
     type: TokenType
-    value: any
+    value: Union[float, str, None]
     position: int
     
     def __repr__(self):

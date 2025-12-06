@@ -151,7 +151,7 @@ The project includes comprehensive tests covering:
 python test_parser.py
 ```
 
-All 24 tests should pass!
+All 27 tests should pass!
 
 ## 📖 Learning Resources
 

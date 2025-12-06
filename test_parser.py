@@ -53,6 +53,14 @@ class TestTokenizer(unittest.TestCase):
         self.assertEqual(tokens[0].value, 3.14)
         self.assertEqual(tokens[2].value, 2.5)
     
+    def test_leading_decimal_point(self):
+        """Test tokenizing numbers with leading decimal point."""
+        tokenizer = Tokenizer(".5 + .25")
+        tokens = tokenizer.tokenize()
+        
+        self.assertEqual(tokens[0].value, 0.5)
+        self.assertEqual(tokens[2].value, 0.25)
+    
     def test_whitespace_handling(self):
         """Test that whitespace is properly ignored."""
         tokenizer1 = Tokenizer("3+5")

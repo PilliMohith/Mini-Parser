@@ -145,8 +145,12 @@ class Tokenizer:
                 self.skip_whitespace()
                 continue
             
-            # Numbers
-            if self.current_char.isdigit():
+            # Numbers (including those starting with decimal point like .5)
+            if self.current_char.isdigit() or (
+                self.current_char == '.' and 
+                self.position + 1 < len(self.text) and 
+                self.text[self.position + 1].isdigit()
+            ):
                 token_pos = self.position
                 number = self.read_number()
                 tokens.append(Token(TokenType.NUMBER, number, token_pos))
